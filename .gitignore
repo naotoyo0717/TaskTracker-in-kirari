@@ -3,3 +3,5 @@ _activations_old/*
 *.pyc
 *.egg-info
 .specstory/
+task_tracker/dataset_creation/datasets/*
+task_tracker/dataset_creation/dataset_sampled/*.json

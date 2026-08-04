@@ -16,7 +16,8 @@ from task_tracker.utils.model import load_model
 # Update paths in task_tracker.config.models of cache_dir (HF cache dir),
 # activation_parent_dir (the output of activations), and text_dataset_parent_dir (dir of dataset text files)
 
-model_name: str = "phi3"
+# model_name: str = "phi3"
+model_name: str = "mistral"
 with_priming: bool = True
 
 

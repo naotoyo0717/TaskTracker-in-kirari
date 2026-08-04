@@ -6,16 +6,21 @@ import torch
 from task_tracker.models.model import Model
 
 # Set the cache directory for Hugging Face transformers
-cache_dir = "/disk1/"
+# cache_dir = "/disk1/"
+cache_dir = "/home/k705456/hf_cache/"  
 os.environ["TRANSFORMERS_CACHE"] = cache_dir
 os.environ["HF_HOME"] = cache_dir
 
 # Directory where model activation data will be stored
-activation_parent_dir = "/disk3/activations/"
+# activation_parent_dir = "/disk3/activations/"
+activation_parent_dir = "/home/k705456/ml/activations/" 
 
 # Directory where the dataset text files are stored
+# text_dataset_parent_dir = (
+#     "/home/saabdelnabi/TaskTracker/task_tracker/dataset_creation/dataset_sampled"
+# )
 text_dataset_parent_dir = (
-    "/home/saabdelnabi/TaskTracker/task_tracker/dataset_creation/dataset_sampled"
+    "/home/k705456/TaskTracker/task_tracker/dataset_creation/dataset_sampled"
 )
 
 # Paths to dataset files
@@ -48,12 +53,20 @@ llama_3_8B = Model(
     torch_dtype=torch.float32,
 )
 
+# mistral_7B = Model(
+#     name="mistralai/Mistral-7B-Instruct-v0.2",
+#     output_dir=os.path.join(activation_parent_dir, "mistral_test"),
+#     data=data,
+#     subset="train",
+#     torch_dtype=torch.float32,
+# )
+
 mistral_7B = Model(
     name="mistralai/Mistral-7B-Instruct-v0.2",
     output_dir=os.path.join(activation_parent_dir, "mistral_test"),
     data=data,
     subset="train",
-    torch_dtype=torch.float32,
+    torch_dtype=torch.bfloat16,
 )
 
 phi3 = Model(

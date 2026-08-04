@@ -14,8 +14,10 @@ def load_model(model_name: str, cache_dir: str, torch_dtype: torch.dtype):
             model_name,
             config=config,
             cache_dir=os.path.join(cache_dir, model_name),
-            device_map="balanced_low_0",
+            # device_map="balanced_low_0",
+            device_map={"": 0},
             torch_dtype=torch_dtype,
+            attn_implementation="sdpa",
         ),
     }
     return model
