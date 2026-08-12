@@ -47,9 +47,10 @@ def main():
 
     for data_type, data in model.data.items():
 
-        if data_type != "train":       # train のみ処理
+            # Process data for activations
+        if data_type != "test_clean":  # SMOKE TEST (remove later)
             continue
-
+            
         try:
             subset = json.load(open(data, "r"))
 

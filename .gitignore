@@ -5,3 +5,5 @@ _activations_old/*
 .specstory/
 task_tracker/dataset_creation/datasets/*
 task_tracker/dataset_creation/dataset_sampled/*.json
+logs/*
+task_tracker/training/linear_probe/*

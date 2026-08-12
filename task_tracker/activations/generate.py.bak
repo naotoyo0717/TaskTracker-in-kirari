@@ -45,11 +45,8 @@ def main():
             logging.info(torch.cuda.memory_summary(device=i))
         raise err
 
+    # Process data for activations
     for data_type, data in model.data.items():
-
-        if data_type != "train":       # train のみ処理
-            continue
-
         try:
             subset = json.load(open(data, "r"))
 

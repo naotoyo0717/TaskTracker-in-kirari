@@ -6,9 +6,9 @@ from task_tracker.config.models import activation_parent_dir, text_dataset_paren
 
 
 # Directory contain text files of activations lists
-DATA_LISTS = "/home/k705456/ml/TaskTracker/task_tracker/data"
+DATA_LISTS = "/home/saabdelnabi/TaskTracker/task_tracker/data"
 # The output directory to store output models per epoch and the best running model
-MODEL_OUTPUT_DIR = "/home/k705456/ml/TaskTracker/task_tracker/output_dir"
+MODEL_OUTPUT_DIR = "/home/saabdelnabi/TaskTracker/task_tracker/output_dir"
 # Directory of the text of sampled training examples
 TRAINING_TEXT_DIR = text_dataset_parent_dir
 # OOD poisoned file (validation)
@@ -35,8 +35,8 @@ CONSTANTS_ALL_MODELS = {
     "mistral": {
         # == With Priming ==
         "ACTIVATION_FILE_LIST_DIR": DATA_LISTS,
-        "ACTIVATIONS_DIR": activation_parent_dir + "/mistral_test/training",
-        "ACTIVATIONS_VAL_DIR": activation_parent_dir + "/mistral_test/validation",
+        "ACTIVATIONS_DIR": activation_parent_dir + "/mistral_7B/training",
+        "ACTIVATIONS_VAL_DIR": activation_parent_dir + "/mistral_7B/validation",
     },
     "llama3_8b": {
         "ACTIVATION_FILE_LIST_DIR": DATA_LISTS,
@@ -59,7 +59,7 @@ CONSTANTS_ALL_MODELS = {
 
 # Directory of activations of test data
 TEST_ACTIVATIONS_DIR_PER_MODEL = {
-    "mistral": activation_parent_dir + "/mistral_test/test",
+    "mistral": activation_parent_dir + "/mistral_7B/test",
     "mixtral": activation_parent_dir + "/mixtral_8x7B_instruct_float16/test",
     "llama3_8b": activation_parent_dir + "/llama3_8b/test/",
     "phi3": activation_parent_dir + "/phi3/test",

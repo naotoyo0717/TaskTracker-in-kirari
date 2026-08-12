@@ -8,7 +8,7 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression
 from tqdm import tqdm
 
-MODEL = "phi3"
+MODEL = "mistral"
 OUTPUT_DIR = MODEL
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 

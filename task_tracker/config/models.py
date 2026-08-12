@@ -20,7 +20,7 @@ activation_parent_dir = "/home/k705456/ml/activations/"
 #     "/home/saabdelnabi/TaskTracker/task_tracker/dataset_creation/dataset_sampled"
 # )
 text_dataset_parent_dir = (
-    "/home/k705456/TaskTracker/task_tracker/dataset_creation/dataset_sampled"
+    "/home/k705456/ml/TaskTracker/task_tracker/dataset_creation/dataset_sampled"
 )
 
 # Paths to dataset files
