@@ -28,7 +28,7 @@ LAYERS_PER_MODEL = {
     "llama3_70b": [0, 7, 15, 23, 31, 39, 47, 55, 63, 71, 79],
     "phi3": [0, 7, 15, 23, 31],
     "mixtral": [0, 7, 15, 23, 31],
-    "mistral": [0, 7, 15, 23, 31],
+    "mistral": list(range(32)),  # all 32 layers
     "llama3_8b": [0, 7, 15, 23, 31],
     "mistral_no_priming": [0, 7, 15, 23, 31],
 }
