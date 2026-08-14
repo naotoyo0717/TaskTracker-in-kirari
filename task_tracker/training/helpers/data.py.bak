@@ -51,7 +51,7 @@ def process_val_data(data_poisoned_file_path, distances_poisoned):
     distances_poisoned_subset = []
 
     for i, item in enumerate(data_poisoned):
-        if item["trigger"] == "":  # embed_method=="none" の代替: trigger空=注入なしを除外
+        if item["embed_method"] == "none":
             continue
         distances_poisoned_subset.append(distances_poisoned[i])
     return distances_poisoned_subset

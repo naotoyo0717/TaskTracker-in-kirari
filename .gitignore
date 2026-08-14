@@ -8,3 +8,4 @@ task_tracker/dataset_creation/dataset_sampled/*.json
 logs/*
 task_tracker/training/linear_probe/*
 task_tracker/evaluation/visualizations/tsne_out*
+task_tracker/output_dir/*

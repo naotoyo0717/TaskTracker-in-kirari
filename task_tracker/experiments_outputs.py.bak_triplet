@@ -108,7 +108,7 @@ LINEAR_PROBES_PATHS_PER_MODEL = {
 
 TRIPLET_PROBES_PATHS_PER_MODEL = {
     "mistral": {
-        "path": "/home/k705456/ml/TaskTracker/task_tracker/output_dir/mistral_test",
+        "path": triplet_probe_out_parent_dir + "/mistral_best",
         "num_layers": (17, 31),
         "saved_embs_clean": "clean_embeddings_20240718-141006.json",
         "saved_embs_poisoned": "poisoned_embeddings_20240718-141438.json",

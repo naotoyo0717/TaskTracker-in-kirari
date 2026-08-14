@@ -48,20 +48,20 @@ config = {
     "activations": ACTIVATIONS_DIR,
     "activations_ood": ACTIVATIONS_VAL_DIR,
     "ood_poisoned_file": OOD_POISONED_FILE,
-    "exp_name": "mistral_test",  # update with the required output dir name
+    "exp_name": "mistral_smoke",  # update with the required output dir name
     "margin": 0.3,
-    "epochs": 6,
+    "epochs": 1,
     "num_layers": (17, 31),  # start to end layer (both inclusive)
     "files_chunk": 10,
-    "batch_size": 2500,  # batch size used for triplet mining
-    "learning_rate": 0.0005,
+    "batch_size": 256,  # batch size used for triplet mining
+    "learning_rate": 0.0001,
     "restart": False,  # Set to True if restarting from a checkpoint
     "feature_dim": 275,
     "pool_first_layer": (
         5 if MODEL == "llama3_70b" else 3
     ),  # llama3 has larger pool layer to reduce its dim faster
     "dropout": 0.5,
-    "check_each": 50,
+    "check_each": 20,
     "conv": True,
     "layer_norm": False,
     "delay_lr_factor": 0.95,
@@ -86,6 +86,7 @@ with open(os.path.join(config.get("out_dir"), "config.json"), "w") as f:
 train_files = load_file_paths(
     os.path.join(ACTIVATION_FILE_LIST_DIR, "train_files_" + MODEL + ".txt")
 )
+train_files = train_files[:15]  # SMOKE TEST
 
 val_files_clean = load_file_paths(
     os.path.join(ACTIVATION_FILE_LIST_DIR, "val_clean_files_" + MODEL + ".txt")
@@ -163,7 +164,7 @@ def one_epoch_train(
                     data[2].cuda(),
                     data[3],
                 )
-                print("primary shape:", primary.size(), flush=True)
+                print("primary shape:", primary.size())
                 # print(len(text_batch))
                 # For models that are read as float16
                 with torch.torch.autocast(device_type="cuda", dtype=torch.float32):
@@ -179,7 +180,7 @@ def one_epoch_train(
                     hard=True if global_counter_for_save > 3000 else False,
                     step=step,
                 )
-                print("num triplets:", len(triplet_combinations), flush=True)
+                print("num triplets:", len(triplet_combinations))
 
             for k in range(0, len(triplet_combinations), batch_size):
                 # Extract embeddings based on mined indices

@@ -51,7 +51,7 @@ config = {
     "exp_name": "mistral_test",  # update with the required output dir name
     "margin": 0.3,
     "epochs": 6,
-    "num_layers": (17, 31),  # start to end layer (both inclusive)
+    "num_layers": (0, 5),  # start to end layer (both inclusive)
     "files_chunk": 10,
     "batch_size": 2500,  # batch size used for triplet mining
     "learning_rate": 0.0005,
@@ -163,8 +163,8 @@ def one_epoch_train(
                     data[2].cuda(),
                     data[3],
                 )
-                print("primary shape:", primary.size(), flush=True)
-                # print(len(text_batch))
+                print(primary.size())
+                print(len(text_batch))
                 # For models that are read as float16
                 with torch.torch.autocast(device_type="cuda", dtype=torch.float32):
                     primary_embs = model(primary)
@@ -179,7 +179,7 @@ def one_epoch_train(
                     hard=True if global_counter_for_save > 3000 else False,
                     step=step,
                 )
-                print("num triplets:", len(triplet_combinations), flush=True)
+                print(len(triplet_combinations))
 
             for k in range(0, len(triplet_combinations), batch_size):
                 # Extract embeddings based on mined indices
