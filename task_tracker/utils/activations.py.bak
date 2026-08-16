@@ -8,7 +8,6 @@ from tqdm import tqdm
 
 from task_tracker.models.model import Model
 from task_tracker.utils.data import format_prompts
-from task_tracker.utils.data_struq import format_prompts_struq
 
 current_dir = os.getcwd()
 parent_dir = os.path.dirname(current_dir)
@@ -97,15 +96,9 @@ def process_texts_in_batches(
 
     for i in tqdm(range(0, len(dataset_subset), batch_size)):
 
-        batch_items = dataset_subset[i : i + batch_size]
-        if getattr(model, "struq_type", None) is not None:
-            batch_primary, batch_primary_clean, batch_primary_poisoned = format_prompts_struq(
-                batch_items, model.struq_type, model.apply_filter
-            )
-        else:
-            batch_primary, batch_primary_clean, batch_primary_poisoned = format_prompts(
-                batch_items, with_priming
-            )
+        batch_primary, batch_primary_clean, batch_primary_poisoned = format_prompts(
+            dataset_subset[i : i + batch_size], with_priming
+        )
 
         hidden_batch_primary = torch.stack(
             [get_last_token_activations_single(text, model) for text in batch_primary]
@@ -168,15 +161,9 @@ def process_texts_in_batches_pairs(
 
     for i in tqdm(range(0, len(dataset_subset), batch_size)):
 
-        batch_items = dataset_subset[i : i + batch_size]
-        if getattr(model, "struq_type", None) is not None:
-            batch_primary, batch_primary_clean, batch_primary_poisoned = format_prompts_struq(
-                batch_items, model.struq_type, model.apply_filter
-            )
-        else:
-            batch_primary, batch_primary_clean, batch_primary_poisoned = format_prompts(
-                batch_items, with_priming
-            )
+        batch_primary, batch_primary_clean, batch_primary_poisoned = format_prompts(
+            dataset_subset[i : i + batch_size], with_priming
+        )
 
         hidden_batch_primary = torch.stack(
             [get_last_token_activations_single(text, model) for text in batch_primary]

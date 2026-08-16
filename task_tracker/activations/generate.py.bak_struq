@@ -17,8 +17,8 @@ from task_tracker.utils.model import load_model
 # activation_parent_dir (the output of activations), and text_dataset_parent_dir (dir of dataset text files)
 
 # model_name: str = "phi3"
-model_name: str = "struq_spcl_filter"
-with_priming: bool = False
+model_name: str = "mistral"
+with_priming: bool = True
 
 
 def main():
@@ -46,9 +46,9 @@ def main():
         raise err
 
     for data_type, data in model.data.items():
-        if data_type not in ("test_clean", "test_poisoned"):
-            continue
 
+        if data_type != "train":       # train のみ処理
+            continue
 
         try:
             subset = json.load(open(data, "r"))

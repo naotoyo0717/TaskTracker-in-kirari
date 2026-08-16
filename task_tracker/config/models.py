@@ -85,6 +85,42 @@ mixtral = Model(
     torch_dtype=torch.float16,
 )
 
+# ===== StruQ models (本命: 構造化クエリ防御の比較) =====
+struq_base = "/home/k705456/ml/StruQ/mistralai"
+
+# 条件①: 防御なし (TextTextText, フィルタなし)
+struq_text = Model(
+    name=os.path.join(struq_base, "Mistral-7B-v0.1_TextTextText_None_manual"),
+    output_dir=os.path.join(activation_parent_dir, "struq_text"),
+    data=data,
+    subset="train",
+    torch_dtype=torch.bfloat16,
+    struq_type="TextTextText",
+    apply_filter=False,
+)
+
+# 条件②: 防御あり・フィルタなし (SpclSpclSpcl, フィルタなし) — テンプレート単独の効果
+struq_spcl_nofilter = Model(
+    name=os.path.join(struq_base, "Mistral-7B-v0.1_SpclSpclSpcl_NaiveCompletion"),
+    output_dir=os.path.join(activation_parent_dir, "struq_spcl_nofilter"),
+    data=data,
+    subset="train",
+    torch_dtype=torch.bfloat16,
+    struq_type="SpclSpclSpcl",
+    apply_filter=False,
+)
+
+# 条件③: 防御あり・フィルタあり (SpclSpclSpcl, フィルタあり) — 完全な防御
+struq_spcl_filter = Model(
+    name=os.path.join(struq_base, "Mistral-7B-v0.1_SpclSpclSpcl_NaiveCompletion"),
+    output_dir=os.path.join(activation_parent_dir, "struq_spcl_filter"),
+    data=data,
+    subset="train",
+    torch_dtype=torch.bfloat16,
+    struq_type="SpclSpclSpcl",
+    apply_filter=True,
+)
+
 # Dictionary of models for easy access
 models: Dict[str, Model] = {
     "llama3_70b": llama_3_70B,
@@ -92,4 +128,7 @@ models: Dict[str, Model] = {
     "mistral": mistral_7B,
     "phi3": phi3,
     "mixtral": mixtral,
+    "struq_text": struq_text,
+    "struq_spcl_nofilter": struq_spcl_nofilter,
+    "struq_spcl_filter": struq_spcl_filter,
 }
