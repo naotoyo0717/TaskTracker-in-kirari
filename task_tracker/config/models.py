@@ -121,6 +121,82 @@ struq_spcl_filter = Model(
     apply_filter=True,
 )
 
+# ===== StruQ 構造偽装攻撃データ（completion_real, 208件, 学習外の評価データ）=====
+# make_struq_pairs.py + convert_pairs_to_tasktracker.py で作成
+struq_cr_data = {
+    "test_clean":    "/home/k705456/ml/StruQ/pairs/tt_completion_real.json",
+    "test_poisoned": "/home/k705456/ml/StruQ/pairs/tt_completion_real.json",
+}
+
+# ① 防御なし
+struq_cr_text = Model(
+    name=os.path.join(struq_base, "Mistral-7B-v0.1_TextTextText_None_manual"),
+    output_dir=os.path.join(activation_parent_dir, "struq_cr_text"),
+    data=struq_cr_data,
+    subset="train",
+    torch_dtype=torch.bfloat16,
+    struq_type="TextTextText",
+    apply_filter=False,
+)
+
+# ② 防御あり・フィルタなし
+struq_cr_spcl_nofilter = Model(
+    name=os.path.join(struq_base, "Mistral-7B-v0.1_SpclSpclSpcl_NaiveCompletion"),
+    output_dir=os.path.join(activation_parent_dir, "struq_cr_spcl_nofilter"),
+    data=struq_cr_data,
+    subset="train",
+    torch_dtype=torch.bfloat16,
+    struq_type="SpclSpclSpcl",
+    apply_filter=False,
+)
+
+# ③ 防御あり・フィルタあり
+struq_cr_spcl_filter = Model(
+    name=os.path.join(struq_base, "Mistral-7B-v0.1_SpclSpclSpcl_NaiveCompletion"),
+    output_dir=os.path.join(activation_parent_dir, "struq_cr_spcl_filter"),
+    data=struq_cr_data,
+    subset="train",
+    torch_dtype=torch.bfloat16,
+    struq_type="SpclSpclSpcl",
+    apply_filter=True,
+)
+
+# ===== Llama版: TaskTrackerデータ 3条件（Mistralと同じdataを使用）=====
+llama_struq_base = "/home/k705456/ml/StruQ/huggyllama"
+
+# ① 防御なし
+llama_text = Model(
+    name=os.path.join(llama_struq_base, "llama-7b_TextTextText_None_manual"),
+    output_dir=os.path.join(activation_parent_dir, "llama_text"),
+    data=data,
+    subset="train",
+    torch_dtype=torch.bfloat16,
+    struq_type="TextTextText",
+    apply_filter=False,
+)
+
+# ② 防御あり・フィルタなし
+llama_spcl_nofilter = Model(
+    name=os.path.join(llama_struq_base, "llama-7b_SpclSpclSpcl_NaiveCompletion"),
+    output_dir=os.path.join(activation_parent_dir, "llama_spcl_nofilter"),
+    data=data,
+    subset="train",
+    torch_dtype=torch.bfloat16,
+    struq_type="SpclSpclSpcl",
+    apply_filter=False,
+)
+
+# ③ 防御あり・フィルタあり
+llama_spcl_filter = Model(
+    name=os.path.join(llama_struq_base, "llama-7b_SpclSpclSpcl_NaiveCompletion"),
+    output_dir=os.path.join(activation_parent_dir, "llama_spcl_filter"),
+    data=data,
+    subset="train",
+    torch_dtype=torch.bfloat16,
+    struq_type="SpclSpclSpcl",
+    apply_filter=True,
+)
+
 # Dictionary of models for easy access
 models: Dict[str, Model] = {
     "llama3_70b": llama_3_70B,
@@ -131,4 +207,10 @@ models: Dict[str, Model] = {
     "struq_text": struq_text,
     "struq_spcl_nofilter": struq_spcl_nofilter,
     "struq_spcl_filter": struq_spcl_filter,
+    "struq_cr_text": struq_cr_text,
+    "struq_cr_spcl_nofilter": struq_cr_spcl_nofilter,
+    "struq_cr_spcl_filter": struq_cr_spcl_filter,
+    "llama_text": llama_text,
+    "llama_spcl_nofilter": llama_spcl_nofilter,
+    "llama_spcl_filter": llama_spcl_filter,
 }

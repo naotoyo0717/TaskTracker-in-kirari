@@ -17,7 +17,7 @@ from task_tracker.utils.model import load_model
 # activation_parent_dir (the output of activations), and text_dataset_parent_dir (dir of dataset text files)
 
 # model_name: str = "phi3"
-model_name: str = "struq_spcl_filter"
+model_name: str = "llama_spcl_filter"
 with_priming: bool = False
 
 
